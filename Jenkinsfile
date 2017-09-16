@@ -1,3 +1,4 @@
+def status = 'inicial'
 node('php'){
     stage('Clean'){
         deleteDir()
@@ -10,6 +11,7 @@ node('php'){
     
     stage('Build'){
         sh 'composer install --prefer-dist --no-dev --ignore-platform-reqs'
+        status = 'alterado no build'
     }
     
     stage('Config') {
@@ -31,3 +33,4 @@ node('php'){
         sh 'docker push gars/todoapi:$BUILD_NUMBER'
     }
 }
+sh 'echo status'
