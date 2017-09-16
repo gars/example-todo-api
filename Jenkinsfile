@@ -12,15 +12,15 @@ node('php'){
         sh 'composer install --prefer-dist --no-dev --ignore-platform-reqs'
     }
     
-    stage ('Config') {
-        parallel {
+    stage('Config') {
+        parallel(
             'config cache': {
                 sh 'php artisan config:cache'                
             },
             'config route': {
                 sh 'php artisan route:cache'
             }
-        }
+        )
     }
     
     stage('Docker Build') {
